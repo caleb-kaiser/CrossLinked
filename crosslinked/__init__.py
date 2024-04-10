@@ -33,6 +33,7 @@ def cli():
     args.add_argument('-t', dest='timeout', type=float, default=15, help='Max timeout per search (Default=15)')
     args.add_argument('-j', dest='jitter', type=float, default=1, help='Jitter between requests (Default=1)')
     args.add_argument(dest='company_name', nargs='?', help='Target company name')
+    args.add_argument('--add', dest="additional", type=str, default="", required=False)
 
     s = args.add_argument_group("Search arguments")
     s.add_argument('--search', dest='engine', default='google,bing', type=lambda x: utils.delimiter2list(x), help='Search Engine (Default=\'google,bing\')')
@@ -53,7 +54,7 @@ def start_scrape(args):
     Log.info("Searching {} for valid employee names at \"{}\"".format(', '.join(args.engine), args.company_name))
 
     for search_engine in args.engine:
-        c = CrossLinked(search_engine,  args.company_name, args.timeout, 3, args.proxy, args.jitter)
+        c = CrossLinked(search_engine,  args.company_name, args.timeout, 3, args.proxy, args.jitter, args.additional)
         if search_engine in c.url.keys():
             tmp += c.search()
     return tmp
