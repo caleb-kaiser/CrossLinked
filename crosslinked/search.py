@@ -48,7 +48,7 @@ class CrossLinked:
         self.conn_timeout = conn_timeout
         self.timeout = timeout
         self.proxies = proxies
-        self.target = target if len(additional) == 0 else target + ' ' + additional.replace(' ', '+') 
+        self.target = target if len(additional) == 0 else target + '+' + additional.replace(' ', '+') 
         self.jitter = jitter
         
 
